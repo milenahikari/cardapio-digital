@@ -1,28 +1,69 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-app id="inspire">
+      <v-navigation-drawer v-model="drawerRight" app clipped right>
+        <v-list dense>
+          <v-list-item @click.stop="right = !right">
+            <v-list-item-action>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Open Temporary Drawer</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-app-bar app clipped-right color="blue-grey" dark>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Toolbar</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight"></v-app-bar-nav-icon>
+      </v-app-bar>
+
+      <v-navigation-drawer v-model="drawer" app>
+        <v-list dense>
+          <v-list-item @click.stop="left = !left">
+            <v-list-item-action>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Open Temporary Drawer</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+
+      <v-navigation-drawer v-model="left" fixed temporary></v-navigation-drawer>
+
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout justify-center align-center>
+            <v-flex shrink>
+              <router-view></router-view>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-content>
+
+      <v-navigation-drawer v-model="right" fixed right temporary></v-navigation-drawer>
+
+      <v-footer app color="blue-grey" class="white--text">
+        <span>Vuetify</span>
+        <v-spacer></v-spacer>
+        <span>&copy; 2019</span>
+      </v-footer>
+    </v-app>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+  data: () => ({
+    drawer: null,
+    drawerRight: null,
+    right: false,
+    left: false
+  })
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
