@@ -10,7 +10,7 @@
     </v-layout>
     <v-layout v-else>
       <v-flex>
-        <v-list v-model="showDetail" rounded="rounded">
+        <v-list rounded="rounded">
           <v-list-item v-for="produto in carrinho" :key="produto.id">
             <div class="cd-content-cart">
               <div class="cd-left-cart">
@@ -18,17 +18,17 @@
               </div>
               <div class="cd-right-cart">
                 <div class="cd-quantity">
-                  <v-icon>fas fa-plus-circle</v-icon>
-                  <span>0</span>
-                  <v-icon>fas fa-minus-circle</v-icon>
+                  <v-icon @click="addOneProduct(produto.idProduto)">fas fa-plus-circle</v-icon>
+                  <span>{{produto.quantidade}}</span>
+                  <v-icon @click="removeOneProduct(produto.idProduto)">fas fa-minus-circle</v-icon>
                 </div>
                 <div class="cd-info">
                   <div class="cd-header-list">
                     <h3 class="cd-cart-title">{{produto.nome}}</h3>
-                    <v-icon>fas fa-times</v-icon>
+                    <v-icon @click="removeProductCart(produto.idProduto)">fas fa-times</v-icon>
                   </div>
                   <div class="cd-price">
-                    <h3>R$ 2;00</h3>
+                    <h3>R$ {{produto.preco}}</h3>
                   </div>
                 </div>
               </div>
@@ -57,6 +57,32 @@ export default {
     ...mapGetters({
       carrinho: "get_cart"
     })
+  },
+
+  methods: {
+    removeProductCart(idProduto) {
+      for (const [key, item] of this.carrinho.entries()) {
+        if (item.idProduto == idProduto) {
+          this.carrinho.splice(key, 1);
+        }
+      }
+    },
+
+    addOneProduct(idProduto) {
+      this.carrinho.forEach(item => {
+        if (item.idProduto == idProduto) {
+          item.quantidade += 1;
+        }
+      });
+    },
+
+    removeOneProduct(idProduto) {
+      this.carrinho.forEach(item => {
+        if (item.idProduto == idProduto && item.quantidade > 0) {
+          item.quantidade -= 1;
+        }
+      });
+    }
   }
 };
 </script>

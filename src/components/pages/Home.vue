@@ -31,25 +31,25 @@ export default {
           id: 0,
           nome: "Água Mineral",
           descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.12
+          preco: 2.1
         },
         {
           id: 1,
           nome: "Água Mineral 2",
           descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.12
+          preco: 3.0
         },
         {
           id: 2,
           nome: "Água Mineral 3",
           descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.12
+          preco: 4.5
         },
         {
           id: 3,
           nome: "Água Mineral 4",
           descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.12
+          preco: 2.5
         }
       ]
     };

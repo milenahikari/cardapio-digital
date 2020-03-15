@@ -26,6 +26,7 @@ export default {
     cardSelected(idProduto, nome, descricao, preco) {
       const cart = {
         idProduto,
+        quantidade: 1,
         nome,
         descricao,
         preco
