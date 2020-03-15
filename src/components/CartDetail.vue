@@ -36,7 +36,7 @@
           </v-list-item>
           <div class="cd-price-total">
             <h2>Total</h2>
-            <h2>R$ 6;00</h2>
+            <h2>R$ {{sumPrice}}</h2>
           </div>
         </v-list>
       </v-flex>
@@ -56,7 +56,15 @@ export default {
   computed: {
     ...mapGetters({
       carrinho: "get_cart"
-    })
+    }),
+
+    sumPrice() {
+      if (this.carrinho.length === 1) return this.carrinho[0].preco;
+
+      return this.carrinho.reduce(
+        (valorTotal, valorAtual) => valorTotal.preco + valorAtual.preco
+      );
+    }
   },
 
   methods: {
@@ -154,7 +162,7 @@ export default {
   align-items: center;
   padding: 15px;
 }
-.cd-header-list i {
+.cd-header-list button {
   position: absolute;
   right: 10px;
   top: 8px;
