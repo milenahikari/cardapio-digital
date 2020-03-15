@@ -38,6 +38,21 @@
             <h2>Total</h2>
             <h2>R$ {{sumPrice}}</h2>
           </div>
+
+          <div class="mt-10 cd-finaliza-compra">
+            <v-btn
+              :loading="loading"
+              :disabled="loading"
+              color="primary"
+              large
+              @click="loader = 'loading'"
+            >
+              Finalizar compra
+              <template v-slot:loader>
+                <span>Loading...</span>
+              </template>
+            </v-btn>
+          </div>
         </v-list>
       </v-flex>
     </v-layout>
@@ -50,7 +65,10 @@ import { mapGetters } from "vuex";
 export default {
   name: "CartDetail",
   data() {
-    return {};
+    return {
+      loader: null,
+      loading: false
+    };
   },
 
   computed: {
@@ -90,6 +108,17 @@ export default {
           item.quantidade -= 1;
         }
       });
+    }
+  },
+
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+
+      setTimeout(() => (this[l] = false), 3000);
+
+      this.loader = null;
     }
   }
 };
@@ -182,5 +211,9 @@ export default {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+}
+.cd-finaliza-compra {
+  display: flex;
+  justify-content: space-around;
 }
 </style>
