@@ -5,7 +5,7 @@
       <h1>Meu carrinho</h1>
     </div>
     <v-layout v-if="carrinho.length == 0" class="cd-empty-cart">
-      <span>Ooops seu carrinho ainda está vazio...</span>
+      <span>Ooops o carrinho ainda está vazio...</span>
       <img src="/empty_cart.gif" />
     </v-layout>
     <v-layout v-else>
@@ -28,7 +28,12 @@
                     <v-icon @click="removeProductCart(produto.idProduto)">fas fa-times</v-icon>
                   </div>
                   <div class="cd-price">
-                    <h3>R$ {{produto.preco}}</h3>
+                    <h3>
+                      {{(produto.quantidade * produto.preco).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL"
+                      })}}
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -36,7 +41,7 @@
           </v-list-item>
           <div class="cd-price-total">
             <h2>Total</h2>
-            <h2>R$ {{sumPrice}}</h2>
+            <h2>{{sumPrice}}</h2>
           </div>
 
           <div class="mt-10 cd-finaliza-compra">
@@ -77,10 +82,16 @@ export default {
     }),
 
     sumPrice() {
-      if (this.carrinho.length === 1) return this.carrinho[0].preco;
+      if (this.carrinho.length === 1)
+        return (
+          this.carrinho[0].preco * this.carrinho[0].quantidade
+        ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-      return this.carrinho.reduce(
-        (valorTotal, valorAtual) => valorTotal.preco + valorAtual.preco
+      return this.carrinho.reduce((valorTotal, valorAtual) =>
+        (
+          valorTotal.quantidade * valorTotal.preco +
+          valorAtual.preco * valorAtual.quantidade
+        ).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
       );
     }
   },

@@ -17,25 +17,55 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: ["id", "preco", "nome", "descricao"],
 
   methods: {
     cardSelected(idProduto, nome, descricao, preco) {
-      const cart = {
-        idProduto,
-        quantidade: 1,
-        nome,
-        descricao,
-        preco
-      };
+      if (this.carrinho.length > 0) {
+        var indiceProduto = null;
 
-      this.setCart(cart);
+        for (const [key, item] of this.carrinho.entries()) {
+          if (item.idProduto == idProduto) {
+            indiceProduto = key;
+          }
+        }
+
+        if (indiceProduto == null) {
+          const cart = {
+            idProduto,
+            quantidade: 1,
+            nome,
+            descricao,
+            preco
+          };
+
+          this.setCart(cart);
+        } else {
+          this.carrinho[indiceProduto].quantidade += 1;
+        }
+      } else {
+        const cart = {
+          idProduto,
+          quantidade: 1,
+          nome,
+          descricao,
+          preco
+        };
+
+        this.setCart(cart);
+      }
     },
     ...mapActions({
       setCart: "set_cart"
+    })
+  },
+
+  computed: {
+    ...mapGetters({
+      carrinho: "get_cart"
     })
   }
 };
