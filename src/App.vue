@@ -1,69 +1,77 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-navigation-drawer v-model="drawerRight" app clipped right>
-        <v-list dense>
-          <v-list-item @click.stop="right = !right">
-            <v-list-item-action>
-              <v-icon>exit_to_app</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Open Temporary Drawer</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-app-bar app clipped-right color="blue-grey" dark>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Toolbar</v-toolbar-title>
+      <v-app-bar app clipped-right flat>
+        <div class="cd-mr-15">
+          <v-icon>fab fa-slack</v-icon>
+        </div>
+        <v-toolbar-title>Milena's restaurant</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-app-bar-nav-icon @click.stop="drawerRight = !drawerRight"></v-app-bar-nav-icon>
+        <v-icon class="cd-mr-20" @click="openCart">fas fa-shopping-cart</v-icon>
       </v-app-bar>
 
-      <v-navigation-drawer v-model="drawer" app>
-        <v-list dense>
-          <v-list-item @click.stop="left = !left">
-            <v-list-item-action>
-              <v-icon>exit_to_app</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Open Temporary Drawer</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-
-      <v-navigation-drawer v-model="left" fixed temporary></v-navigation-drawer>
-
+      <Categories />
       <v-content>
         <v-container fluid fill-height>
-          <v-layout justify-center align-center>
-            <v-flex shrink>
-              <router-view></router-view>
-            </v-flex>
+          <v-layout>
+            <router-view></router-view>
           </v-layout>
         </v-container>
       </v-content>
 
-      <v-navigation-drawer v-model="right" fixed right temporary></v-navigation-drawer>
-
-      <v-footer app color="blue-grey" class="white--text">
-        <span>Vuetify</span>
-        <v-spacer></v-spacer>
-        <span>&copy; 2019</span>
-      </v-footer>
+      <v-navigation-drawer v-model="right" fixed right temporary width="30%">
+        <CartDetail />
+      </v-navigation-drawer>
     </v-app>
   </div>
 </template>
 
 <script>
+import Categories from "./components/Categories";
+import CartDetail from "./components/CartDetail";
+
+import { mapGetters } from "vuex";
+
 export default {
+  name: "App",
+
   data: () => ({
     drawer: null,
-    drawerRight: null,
-    right: false,
-    left: false
-  })
+    right: false
+  }),
+
+  components: {
+    Categories,
+    CartDetail
+  },
+
+  watch: {
+    carrinho() {
+      if (this.carrinho.length > 0) {
+        this.right = !this.right;
+      }
+    }
+  },
+
+  methods: {
+    openCart() {
+      this.right = !this.right;
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      carrinho: "get_cart"
+    })
+  }
 };
 </script>
+
+<style>
+.cd-mr-15 {
+  margin-right: 15px;
+}
+.cd-mr-20 {
+  margin-right: 20px;
+}
+</style>
