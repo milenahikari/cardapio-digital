@@ -6,7 +6,7 @@
 
       <v-row>
         <v-col cols="12" sm="12" md="4" lg="4" v-for="produto in produtos" :key="produto.id">
-          <Card
+          <CardProduct
             :id="produto.id"
             :nome="produto.nome"
             :descricao="produto.descricao"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Card from "../Card";
+import CardProduct from "../CardProduct";
 
 export default {
   name: "Home",
@@ -56,7 +56,7 @@ export default {
   },
 
   components: {
-    Card
+    CardProduct
   }
 };
 </script>
