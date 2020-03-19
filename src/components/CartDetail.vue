@@ -14,7 +14,7 @@
           <v-list-item v-for="produto in carrinho" :key="produto.id">
             <div class="cd-content-cart">
               <div class="cd-left-cart">
-                <v-img max-width="100" height="100" src="https://picsum.photos/500/300?image=16" />
+                <v-img max-width="100" height="100" :src="`${produto.imagem}`" />
               </div>
               <div class="cd-right-cart">
                 <div class="cd-quantity">

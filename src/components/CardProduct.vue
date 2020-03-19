@@ -3,12 +3,17 @@
     class="mx-auto"
     max-width="344"
     outlined
-    @click="cardSelected(id, nome, descricao, preco)"
+    @click="cardSelected(id, nome, descricao, preco, imagem)"
   >
     <v-list-item three-line>
-      <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
+      <v-img max-width="100" height="100" :src="`${imagem}`" />
       <v-list-item-content>
-        <div class="mb-4">R$ {{preco}}</div>
+        <div class="mb-4">
+          {{preco.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL"
+          })}}
+        </div>
         <v-list-item-title class="headline mb-1">{{nome}}</v-list-item-title>
         <v-list-item-subtitle>{{descricao}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -20,10 +25,10 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  props: ["id", "preco", "nome", "descricao"],
+  props: ["id", "preco", "nome", "descricao", "imagem"],
 
   methods: {
-    cardSelected(idProduto, nome, descricao, preco) {
+    cardSelected(idProduto, nome, descricao, preco, imagem) {
       if (this.carrinho.length > 0) {
         var indiceProduto = null;
 
@@ -39,7 +44,8 @@ export default {
             quantidade: 1,
             nome,
             descricao,
-            preco
+            preco,
+            imagem
           };
 
           this.setCart(cart);
@@ -52,7 +58,8 @@ export default {
           quantidade: 1,
           nome,
           descricao,
-          preco
+          preco,
+          imagem
         };
 
         this.setCart(cart);

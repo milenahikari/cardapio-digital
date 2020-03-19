@@ -11,6 +11,7 @@
             :nome="produto.nome"
             :descricao="produto.descricao"
             :preco="produto.preco"
+            :imagem="produto.imagem"
           />
         </v-col>
       </v-row>
@@ -31,25 +32,33 @@ export default {
           id: 0,
           nome: "Água Mineral",
           descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.1
+          preco: 2.0,
+          imagem:
+            "https://cdn.garciasupermercados.com.br/media/catalog/product/cache/1/image/1000x1000/17f82f742ffe127f42dca9de82fb58b1/_/g/_gua_mineral_sem_g_s_crystal_500ml.jpg"
         },
         {
           id: 1,
-          nome: "Água Mineral 2",
-          descricao: "Garrafinha de 500ml de água mineral",
-          preco: 3.0
+          nome: "Coca-Cola",
+          descricao: "Lata de 250ml",
+          preco: 3.0,
+          imagem:
+            "https://images.zonasul.com.br/imagem1000X1000/2018621_10944.jpg"
         },
         {
           id: 2,
-          nome: "Água Mineral 3",
-          descricao: "Garrafinha de 500ml de água mineral",
-          preco: 4.5
+          nome: "Guaraná",
+          descricao: "Lata de 250 ml",
+          preco: 4.5,
+          imagem:
+            "https://www.deliveryextra.com.br/img/uploads/1/226/619226.jpg?type=product"
         },
         {
           id: 3,
-          nome: "Água Mineral 4",
-          descricao: "Garrafinha de 500ml de água mineral",
-          preco: 2.5
+          nome: "Suco Natural de Laranja",
+          descricao: "Copo de 500ml de suco natural",
+          preco: 2.5,
+          imagem:
+            "https://www.fundecitrus.com.br/img/noticias/456-201708081808.png"
         }
       ]
     };
