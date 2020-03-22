@@ -8,34 +8,10 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item>
-        <div class="cd-category">
-          <v-icon>fas fa-bread-slice</v-icon>
-          <span>Entrada</span>
-        </div>
-      </v-list-item>
-      <v-list-item>
-        <div class="cd-category">
-          <v-icon>fas fa-utensils</v-icon>
-          <span>Prato Principal</span>
-        </div>
-      </v-list-item>
-      <v-list-item>
-        <div class="cd-category">
-          <v-icon>fas fa-hamburger</v-icon>
-          <span>Lanches</span>
-        </div>
-      </v-list-item>
-      <v-list-item>
-        <div class="cd-category">
-          <v-icon>fas fa-glass-martini-alt</v-icon>
-          <span>Bebidas</span>
-        </div>
-      </v-list-item>
-      <v-list-item>
-        <div class="cd-category">
-          <v-icon>fas fa-ice-cream</v-icon>
-          <span>Sobremesa</span>
+      <v-list-item v-for="(categoria) in categories" :key="categoria.id">
+        <div class="cd-category" @click="categorySelected(categoria.id, categoria.name)">
+          <v-icon>{{categoria.icon}}</v-icon>
+          <span>{{categoria.name}}</span>
         </div>
       </v-list-item>
     </v-list>
@@ -43,8 +19,42 @@
 </template>
 
 <script>
+import api from "../services/api";
+import { mapActions } from "vuex";
+
 export default {
-  name: "Categories"
+  name: "Categories",
+
+  data() {
+    return {
+      categories: []
+    };
+  },
+
+  mounted() {
+    api.get("/category").then(res => (this.categories = res.data));
+  },
+
+  methods: {
+    async categorySelected(idCategory, nameCategory) {
+      this.setCategorySelected(nameCategory);
+
+      if (Number.isInteger(idCategory) && idCategory > 0) {
+        try {
+          const response = await api.get(`/category/${idCategory}/product`);
+
+          this.setProductsForCategory(response.data);
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    },
+
+    ...mapActions({
+      setProductsForCategory: "set_productsForCategory",
+      setCategorySelected: "set_categorySelected"
+    })
+  }
 };
 </script>
 

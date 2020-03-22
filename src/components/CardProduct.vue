@@ -6,7 +6,7 @@
     @click="cardSelected(id, nome, descricao, preco, imagem)"
   >
     <v-list-item three-line>
-      <v-img max-width="100" height="100" :src="`${imagem}`" />
+      <v-img class="cd-img-card" :src="`${imagem}`" />
       <v-list-item-content>
         <div class="mb-4">
           {{preco.toLocaleString("pt-BR", {
@@ -77,3 +77,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.cd-img-card {
+  max-width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+</style>
