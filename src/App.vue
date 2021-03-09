@@ -5,7 +5,7 @@
         <div class="cd-mr-15">
           <v-icon>fab fa-slack</v-icon>
         </div>
-        <v-toolbar-title>Milena's restaurant</v-toolbar-title>
+        <v-toolbar-title>Restaurante</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-icon class="cd-mr-20" @click="openCart">fas fa-shopping-cart</v-icon>
       </v-app-bar>

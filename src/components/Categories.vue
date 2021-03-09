@@ -1,6 +1,6 @@
 <template>
-  <v-navigation-drawer app>
-    <v-list dense>
+  <v-navigation-drawer app permanent color="#F1F1F1">
+    <v-list>
       <v-list-item>
         <v-list-item-content text-center>
           <v-list-item-title class="cd-title">
@@ -8,7 +8,7 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item v-for="(categoria) in categories" :key="categoria.id">
+      <v-list-item class="cd-list-item" v-for="(categoria) in categories" :key="categoria.id">
         <div class="cd-category" @click="categorySelected(categoria.id, categoria.name)">
           <v-icon>{{categoria.icon}}</v-icon>
           <span>{{categoria.name}}</span>
@@ -64,20 +64,27 @@ export default {
   margin: 10px;
 }
 .cd-title span {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .cd-category {
+  background: white;
   width: 100%;
-  height: 100%;
+  height: 140px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin-top: 15px;
+}
+.cd-category i {
+  color: #232323;
+  font-size: 40px;
 }
 .cd-category span {
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 20px;
 }
 </style>
